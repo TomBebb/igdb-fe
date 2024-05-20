@@ -4,6 +4,7 @@ import { encodeIgdbBody } from "./body"
 import { Character } from "./character"
 import { WhereBody, encodeWhereBody } from "./where"
 import { Game } from "./game"
+import { Genre } from "./genre"
 export interface SearchResult {
   id: number
   alternative_name: string
@@ -26,6 +27,7 @@ export const defaultListingOpts: RestListingOptions = {
 export interface ListingTypes {
   characters: Character
   games: Game
+  genres: Genre
 }
 
 export enum SortOrder {
@@ -47,7 +49,6 @@ export default class RestClient {
       console.info("re-auth")
       this.lastAuth = await doAuth()
     }
-    console.info(this.lastAuth)
     return {
       headers: {
         "Client-ID": import.meta.env.VITE_TWITCH_CLIENT_ID,
@@ -61,6 +62,7 @@ export default class RestClient {
     ty: T,
     id: number
   ): Promise<MappedListingType<T>> {
+    // @ts-ignore
     const res = await this.list(ty, { limit: 1, offset: 0 }, { id })
     return res[0]
   }
@@ -69,6 +71,7 @@ export default class RestClient {
     ty: T,
     ids: number[]
   ): Promise<MappedListingType<T>[]> {
+    // @ts-ignore
     return this.list(ty, { limit: ids.length, offset: 0 }, { id: { in: ids } })
   }
   public async list<T extends ListingType>(
