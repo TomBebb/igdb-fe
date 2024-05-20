@@ -9,14 +9,18 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write src",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "panda codegen"
   },
   "dependencies": {
     "ky": "^1.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
+    "@iconify/react": "5.0.0-beta.2",
+    "@pandacss/dev": "^0.39.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -29,6 +33,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-node": "^1.6.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   }
 }

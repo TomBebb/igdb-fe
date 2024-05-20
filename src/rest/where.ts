@@ -1,4 +1,3 @@
-import { an } from "vitest/dist/reporters-yx5ZTtEV.js"
 import { mapValue } from "./body"
 
 export type WhereBody<

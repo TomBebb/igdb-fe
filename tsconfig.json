@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"],
+      "styles/*": ["./styled-system/*"]
+    },
     "target": "ES2021",
     "useDefineForClassFields": true,
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
