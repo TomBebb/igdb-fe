@@ -2,6 +2,8 @@ import ky, { Options } from "ky"
 import { MappedAuthSuccess, doAuth } from "./auth"
 import { encodeIgdbBody } from "./body"
 import { Character } from "./character"
+import { WhereBody, encodeWhereBody } from "./where"
+import { Game } from "./game"
 export interface SearchResult {
   id: number
   alternative_name: string
@@ -23,6 +25,16 @@ export const defaultListingOpts: RestListingOptions = {
 }
 export interface ListingTypes {
   characters: Character
+  games: Game
+}
+
+export enum SortOrder {
+  Ascending = "asc",
+  Descending = "desc",
+}
+export interface Sort<T extends ListingType> {
+  order: SortOrder
+  field: keyof MappedListingType<T>
 }
 
 type ListingType = keyof ListingTypes
@@ -47,9 +59,26 @@ export default class RestClient {
 
   public async list<T extends ListingType>(
     ty: T,
-    opts: RestListingOptions = defaultListingOpts
+    opts: RestListingOptions = defaultListingOpts,
+    filters?: WhereBody<MappedListingType<T>>,
+    sort?: Sort<T>
   ): Promise<MappedListingType<T>[]> {
-    return []
+    const conf = await this.getHttpConf()
+    let body = encodeIgdbBody({ fields: "*" /*...opts*/ })
+    if (sort) {
+      body += ` sort ${String(sort.field)} ${sort.order};`
+    }
+    if (filters) {
+      const filtersWhere = encodeWhereBody(filters)
+      if (filtersWhere !== "") body += ` where ${filtersWhere};`
+    }
+    console.info({ body })
+    return ky
+      .post(ty, {
+        ...conf,
+        body,
+      })
+      .json()
   }
 
   public async search(

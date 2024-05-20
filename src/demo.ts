@@ -1,3 +1,5 @@
 import RestClient from "./rest/client"
 const client = new RestClient()
-console.log(await client.search("Xenoblade"))
+
+const games = await client.list("games", undefined, { id: { eq: 236669 } })
+console.info(games[0])
