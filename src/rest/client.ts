@@ -64,7 +64,7 @@ export default class RestClient {
     sort?: Sort<T>
   ): Promise<MappedListingType<T>[]> {
     const conf = await this.getHttpConf()
-    let body = encodeIgdbBody({ fields: "*" /*...opts*/ })
+    let body = encodeIgdbBody({ fields: "*", ...opts })
     if (sort) {
       body += ` sort ${String(sort.field)} ${sort.order};`
     }
