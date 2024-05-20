@@ -63,7 +63,7 @@ export default class RestClient {
     id: number
   ): Promise<MappedListingType<T>> {
     // @ts-ignore
-    const res = await this.list(ty, { limit: 1, offset: 0 }, { id })
+    const res = await this.list(ty, { limit: 1, offset: 0 }, { id: { eq: id } })
     return res[0]
   }
 
