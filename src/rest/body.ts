@@ -1,6 +1,6 @@
 export type IgdbBody = Record<string, "*" | string | number>
 
-export function mapValue(value: "*" | string | number): string {
+export function mapValue(value: any): string {
   if (value === "*" || typeof value !== "string") return String(value)
 
   return `"${value.replaceAll('"', "")}"`

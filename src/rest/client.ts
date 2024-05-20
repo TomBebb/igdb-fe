@@ -1,6 +1,7 @@
 import ky, { Options } from "ky"
 import { MappedAuthSuccess, doAuth } from "./auth"
 import { encodeIgdbBody } from "./body"
+import { Character } from "./character"
 export interface SearchResult {
   id: number
   alternative_name: string
@@ -20,7 +21,12 @@ export const defaultListingOpts: RestListingOptions = {
   limit: 10,
   offset: 0,
 }
+export interface ListingTypes {
+  characters: Character
+}
 
+type ListingType = keyof ListingTypes
+type MappedListingType<T extends ListingType> = ListingTypes[T]
 export default class RestClient {
   private lastAuth?: MappedAuthSuccess
 
@@ -37,6 +43,13 @@ export default class RestClient {
       },
       prefixUrl: "https://api.igdb.com/v4",
     }
+  }
+
+  public async list<T extends ListingType>(
+    ty: T,
+    opts: RestListingOptions = defaultListingOpts
+  ): Promise<MappedListingType<T>[]> {
+    return []
   }
 
   public async search(
