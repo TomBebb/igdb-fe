@@ -57,6 +57,20 @@ export default class RestClient {
     }
   }
 
+  public async getById<T extends ListingType>(
+    ty: T,
+    id: number
+  ): Promise<MappedListingType<T>> {
+    const res = await this.list(ty, { limit: 1, offset: 0 }, { id })
+    return res[0]
+  }
+
+  public async getByIds<T extends ListingType>(
+    ty: T,
+    ids: number[]
+  ): Promise<MappedListingType<T>[]> {
+    return this.list(ty, { limit: ids.length, offset: 0 }, { id: { in: ids } })
+  }
   public async list<T extends ListingType>(
     ty: T,
     opts: RestListingOptions = defaultListingOpts,
@@ -72,7 +86,6 @@ export default class RestClient {
       const filtersWhere = encodeWhereBody(filters)
       if (filtersWhere !== "") body += ` where ${filtersWhere};`
     }
-    console.info({ body })
     return ky
       .post(ty, {
         ...conf,

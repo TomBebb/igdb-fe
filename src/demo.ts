@@ -1,5 +1,7 @@
 import RestClient from "./rest/client"
 const client = new RestClient()
 
-const games = await client.list("games", undefined, { id: { eq: 236669 } })
-console.info(games[0])
+const game = await client.getById("games", 236669)
+
+const similarGames = await client.getByIds("games", game.similar_games)
+console.info({ similarGames })
