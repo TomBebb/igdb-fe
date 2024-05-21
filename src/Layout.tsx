@@ -24,8 +24,12 @@ export default function Layout(): JSX.Element {
       >
         <MyNav
           className={css({
-            display: showMenu ? "flex" : "none",
+            position: "fixed",
+            top: "5vh",
+            width: "100%",
+            left: showMenu ? 0 : "-100vw",
             lg: { display: "flex" },
+            transition: "all 0.3s ease",
           })}
         />
       </div>

@@ -31,6 +31,7 @@ export default function MyHeader({ showMenu, setShowMenu }: MyHeaderProps) {
         paddingY: "0.6vw",
         display: "flex",
         gap: "0.8vw",
+        height: "5vh",
       })}
     >
       <MyButton
