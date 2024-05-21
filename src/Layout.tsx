@@ -27,8 +27,9 @@ export default function Layout(): JSX.Element {
             position: "fixed",
             top: "5vh",
             width: "100%",
+            paddingX: "2vw",
             left: showMenu ? 0 : "-100vw",
-            lg: { display: "flex" },
+            lg: { position: "relative", left: 0, paddingX: 0, top: 0 },
             transition: "all 0.3s ease",
           })}
         />
