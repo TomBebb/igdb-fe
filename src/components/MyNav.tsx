@@ -1,19 +1,22 @@
 import { css } from "styles/css"
 import { isRouteMatching, routes } from "~/routes.tsx"
 import { Link, useLocation } from "react-router-dom"
-
-export default function MyNav() {
+export default function MyNav({ className }: { className?: string }) {
   const location = useLocation()
   return (
     <div
-      className={css({
-        display: "flex",
-        flexDir: "column",
-        alignItems: "center",
-        justifyItems: "center",
-        fontSize: "2em",
-        gap: "0.2vh",
-      })}
+      className={
+        css({
+          display: "flex",
+          flexDir: "column",
+          alignItems: "center",
+          justifyItems: "center",
+          fontSize: "2em",
+          gap: "0.2vh",
+        }) +
+        " " +
+        className
+      }
     >
       {routes.map((route) => (
         <Link
