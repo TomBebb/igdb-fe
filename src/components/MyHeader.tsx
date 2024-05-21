@@ -37,9 +37,9 @@ export default function MyHeader({ showMenu, setShowMenu }: MyHeaderProps) {
         icon="mdi:menu"
         onClick={toggleMenu}
         className={css({
-          display: "none",
+          display: "flex",
           lg: {
-            display: "unset",
+            display: "none",
           },
         })}
       />

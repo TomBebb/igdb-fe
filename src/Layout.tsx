@@ -23,11 +23,10 @@ export default function Layout(): JSX.Element {
         })}
       >
         <MyNav
-          className={css(
-            showMenu
-              ? { display: "flex", alignItems: "center" }
-              : { display: "none" }
-          )}
+          className={css({
+            display: showMenu ? "flex" : "none",
+            lg: { display: "flex" },
+          })}
         />
       </div>
       <h1>Hello World: {path.pathname}</h1>
